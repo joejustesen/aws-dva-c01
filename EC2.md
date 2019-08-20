@@ -1,8 +1,8 @@
 # EC2 Notes
 
-### EC2 - Elastic Compute Cloud
+## EC2 - Elastic Compute Cloud
 
-Payment options
+### Payment options
 
 - On Demand (linux by the second, Windows by the hour)
   - No long term commitments
@@ -22,7 +22,7 @@ Payment options
   - Can be hourly priced
   - Up to 75% off on-demand
 
-Instance Types
+### Instance Types
 
 - F1 Field Programmable Gate Array [Analytics]
 - I3 High speed storage [DB]
@@ -38,7 +38,7 @@ Instance Types
 
 FightDrMcPx - remember instance types....
 
-### EBS - Elastic Block Storage (attached volumes)
+## EBS - Elastic Block Storage (attached volumes)
 
 Root device volume - boot and image drive
 
@@ -57,3 +57,71 @@ Root device volume - boot and image drive
     Magnetic (Std)
   - legacy
   - can boot from
+
+## AWS CLI
+
+- stored in ~/.aws/config ~/.aws/credentials
+- aws configure --profile {profile_name}
+- export AWS_PROFILE={profile_name} or setx AWS_PROFILE {profile_name}
+
+## AWS EBS
+
+- EBS volume must be in same availablity zone as ec2 instance.
+- create encrypted root volume by copying root volume and creating an ec2 image from the copied and encrypted root volume.
+
+## RDS
+
+- (OLTP) SQL Server, MySQL, PostgreSQL, Oracle, Aurora, MariaDB
+- (OLAP) Redshift
+- Elasticache [Memcached, Redis]
+
+### RDS Backups
+
+- automated backups, snapshot + transaction logs
+- snapshot, done manually, stored until original RDS instance is deleted.
+- restored instances have a different url
+- encrypted if database is encrypted,
+- create an encryted database by copying a snapshot and restoring
+
+### RDS Multi-AZ
+
+- for disaster recovery only - synchronous replication
+
+### RDS Read-replica
+
+- for performance - asynchronous replication
+- NOT available for Oracle or SQL Server
+- 5 read replica for each DB
+- can be in different availablity zone or region
+- can be promoted to main DB, but breaks all read replication
+
+### RDS Elasticache
+
+- store critical data in memory
+- redis allows multi-az consistency
+- redis is managed like a database, with persistence
+- memcached auto scaling like EC2 auto scaling
+- read heavy queries
+- not for OLAP, use Redshift instead
+
+#### Memcached
+
+- simple
+- offline database data
+- scale out
+
+#### Redis
+
+- advanced data types (lists, hashes, sets)
+- pub/sub
+- sorting, ranked datasets like leaderboards
+- persistence
+- multi-az
+
+## CloudFront
+
+- max TTL 31536000 seconds (365 days)
+- default TTL 86400 seconds (24hrs)
+- protect content with signed URLs or signed cookies
+- WAF projects you at the application layer, automatically projects you from
+- SSL cert, can bring your own and store in ACM or IAM
