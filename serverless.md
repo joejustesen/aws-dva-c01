@@ -58,7 +58,7 @@
 
 - can cache response for TTL seconds
 - CORS (hot topic in test)
-- Can import from a Swagger 2.0 file
+- Can import from a Swagger 2.0/3.0 file
 - throttle to 10,000 rps (HTTP error 429)
   - limit can be changed, but will cost
   - per AWS account, NOT region or gateway
