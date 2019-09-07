@@ -56,3 +56,26 @@
 
 - multiple AWS accounts (dev and test vs production)
 - use same ID, but allow selection of account to log into
+
+- Account A
+
+  - Create policy, create own. Policy allows access to shared resources.
+  - Create cross account access role "MyDevelopersAccess" to give access to resources in A, attach policy created above.
+
+- Account B
+
+  - Create Group GroupA
+  - Create inline custom policy
+    ```
+    {
+      "Version": "2012-10-17",
+      "Statement": {
+        "Effect": "Allow",
+        "Action": "sts:AssumeRole",
+        "Resource": "arn:aws:iam::PRODUCTION-ACCOUNT-ID:role/MyDevelopersAccess"
+      }
+    }
+    ```
+  - This gives members of GroupA access to the resources in Account A, MyDevelopersAccess
+
+- Account "Switch Roles" to MyDeveloperAccess to access those resources.
